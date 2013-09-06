@@ -176,10 +176,14 @@
                     
                     response.write(build_order_desc(set_meal_order, soup_order))
                     
-                    set_meal_order.Close
-                    set set_meal_order = nothing
-                    soup_order.Close
-                    set soup_order = nothing
+                    if not set_meal_order is nothing then
+                        set_meal_order.Close
+                        set set_meal_order = nothing
+                    end if
+                    if not soup_order is nothing then
+                        soup_order.Close
+                        set soup_order = nothing
+                    end if
                 end if
             end if
         %>

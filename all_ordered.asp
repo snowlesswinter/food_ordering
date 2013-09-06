@@ -18,7 +18,7 @@
             "on o.guest_id=g.id " &_
             "join food_menu as m " &_
             "on o.food_id=m.id where 1=1" &_
-            "order by g.name, o.issue_time desc"
+            "order by order_progress, guest_name, order_issue_time desc"
 
         records.Open sql_command, db_conn
         set get_orders = records
@@ -102,8 +102,10 @@
                 
                 'status
                 dim status
-                if order_records(4, row) > "0" then
+                if order_records(4, row) > "1" then
                     status = "done"
+                elseif order_records(4, row) > "0" then
+                    status = "ordered"
                 else
                     status = "pending"
                 end if
@@ -163,7 +165,7 @@
                         dim font1, font2
                         font1 = ""
                         font2 = ""
-                        if not order_desc(4, row) = "pending" then
+                        if order_desc(4, row) = "done" then
                             font1 = "<font color=""#999999"">"
                             font2 = "</font>"
                         end if
